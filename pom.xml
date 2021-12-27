@@ -9,7 +9,7 @@
     </parent>
     <groupId>com.bmc.ims</groupId>
     <artifactId>bmc-cfa</artifactId>
-    <version>1.0.01-SNAPSHOT</version>
+    <version>1.0.01</version>
     <!-- version>${revision}${changelist}</version-->
     <packaging>hpi</packaging>
     <properties>
@@ -30,7 +30,7 @@
   <scm>
     <connection>scm:git:git://github.com/${gitHubRepo}.git</connection>
     <developerConnection>scm:git:git@github.com:${gitHubRepo}.git</developerConnection>
-    <tag>${scmTag}</tag>
+    <tag>bmc-cfa-1.0.01</tag>
     <url>https://github.com/${gitHubRepo}</url>
 </scm>
     <dependencyManagement>
@@ -76,6 +76,11 @@
     <build>
     	<pluginManagement>
     		<plugins>
+    			 <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-release-plugin</artifactId>
+			        <version>3.0.0-M4</version>
+     			 </plugin>
     			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
     			<plugin>
     				<groupId>org.eclipse.m2e</groupId>
@@ -106,7 +111,7 @@
     									</goals>
     								</pluginExecutionFilter>
     								<action>
-    									<ignore></ignore>
+    									<ignore />
     								</action>
     							</pluginExecution>
     							<pluginExecution>
@@ -125,7 +130,7 @@
     									</goals>
     								</pluginExecutionFilter>
     								<action>
-    									<ignore></ignore>
+    									<ignore />
     								</action>
     							</pluginExecution>
     							<pluginExecution>
@@ -144,7 +149,7 @@
     									</goals>
     								</pluginExecutionFilter>
     								<action>
-    									<ignore></ignore>
+    									<ignore />
     								</action>
     							</pluginExecution>
     							<pluginExecution>
@@ -163,7 +168,7 @@
     									</goals>
     								</pluginExecutionFilter>
     								<action>
-    									<ignore></ignore>
+    									<ignore />
     								</action>
     							</pluginExecution>
     							<pluginExecution>
@@ -180,7 +185,7 @@
     									</goals>
     								</pluginExecutionFilter>
     								<action>
-    									<ignore></ignore>
+    									<ignore />
     								</action>
     							</pluginExecution>
     							<pluginExecution>
@@ -201,7 +206,7 @@
     									</goals>
     								</pluginExecutionFilter>
     								<action>
-    									<ignore></ignore>
+    									<ignore />
     								</action>
     							</pluginExecution>
     						</pluginExecutions>
