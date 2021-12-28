@@ -15,6 +15,7 @@
         <changelist>999999-SNAPSHOT</changelist>
         <jenkins.version>2.303.2</jenkins.version>
         <java.level>8</java.level>
+        <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
      </properties>
     <name>BMC DevOps for CFA</name>
     
