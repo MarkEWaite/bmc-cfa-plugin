@@ -8,14 +8,11 @@
         <relativePath />
     </parent>
     <groupId>com.bmc.ims</groupId>
-    <artifactId>bmc-cfa</artifactId>
-    <version>1.0.01</version>
-    <!-- version>${revision}${changelist}</version-->
+    <artifactId>bmc-cfa</artifactId>    
+    <version>${changelist}</version>
     <packaging>hpi</packaging>
-    <properties>
-		<!-- revision>1.0.00</revision>
-		<changelist/-->
-        <!--changelist>999999-SNAPSHOT</changelist-->
+    <properties>	
+        <changelist>999999-SNAPSHOT</changelist>
         <jenkins.version>2.303.2</jenkins.version>
         <java.level>8</java.level>
      </properties>
@@ -45,10 +42,6 @@
         </dependencies>
     </dependencyManagement>
 
-    
-
-    
-
     <repositories>
         <repository>
             <id>repo.jenkins-ci.org</id>
@@ -73,14 +66,7 @@
             <version>1.78</version>
         </dependency>
     </dependencies>
-    <build>
-    	<plugins>
-    		<plugin>
-			        <groupId>org.apache.maven.plugins</groupId>
-			        <artifactId>maven-release-plugin</artifactId>
-			        <version>3.0.0-M4</version>
-     		</plugin>
-     	</plugins>	
+    <build>    	
     	<pluginManagement>
     		<plugins>
     			 
