@@ -1,7 +1,7 @@
 # BMC DevOps for Checkpoint/Commit Frequency Analyzer  
 [![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-cfa.svg)](https://plugins.jenkins.io/bmc-cfa) 
 # Table of contents
-1. [Introduction](#introduction)
+1. [Introduction](#overview)
 2. [Authenticating the SSL Certificate](#cert)  
 3. [Jenkins Requirements](#req)  
 4. [Screenshots](#screenshots)
@@ -10,7 +10,7 @@
 7. [Commit Frequency Report for IMS](#imsrpt)
 8. [Required information for diagnosing problems](#diag)
 
-## Introduction <a name="introduction"></a>
+## Overview <a name="overview"></a>
 BMC DevOps for Checkpoint/Commit Frequency Analyzer (CFA) automates the process of reporting application checkpoints/commit information from IMS and DB2 logs. It can be used to illustrate the impact of changes made by application programs on IMS databases, by comparing CFA reports before and after the implemented changes.
 
 The plugin is implemented as a job's build step:

@@ -665,6 +665,43 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		}
 		return null;
 	}
+	
+	private String adjustBodyTo72Chars(String body)
+	{
+		String processedBody="";
+		
+		while(body.length()>0)
+		{
+			if(body.indexOf("\n")>73)
+			{
+				//break the line at the last " "
+				for(int charsPerLine=72 ; charsPerLine>0 ; charsPerLine--)
+				{
+					String delimiter=body.substring(charsPerLine,charsPerLine+1);
+					if(delimiter.equals(" ") || delimiter.equals(","))
+					{
+						processedBody=processedBody.concat(body.substring(0,charsPerLine)+"\n");					
+						body=body.substring(charsPerLine);
+						break;
+					}
+				}//end for loop				
+			}
+			else if(body.indexOf("\n")<=73)
+			{				
+				//String[] temp=body.split("\\n");				
+				processedBody=processedBody.concat(body.substring(0,body.indexOf("\n")+1));				
+				body=body.substring(body.indexOf("\n")+1);			
+			}
+			// last line
+			else if(body.indexOf("\n")==-1)
+			{
+				processedBody=processedBody.concat(body);
+				body=body.substring(0,0); //sets length to 0
+			}
+		}
+		
+		return processedBody;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -866,12 +903,11 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		body=body.replace(",)", ")");
 	
 		//This will replace every 72 characters with the same 80 characters and add a new line at the end
-		body=body.replaceAll("(.{72})", "$1\n");
+		//body=body.replaceAll("(.{72})", "$1\n");
 	
-			
+		body=adjustBodyTo72Chars(body);		
 		
-		
-		listener.getLogger().println("body:\n " + body);
+		listener.getLogger().println("body:\n" + body);
 
 		/***************************/
 		/* Set headers */
