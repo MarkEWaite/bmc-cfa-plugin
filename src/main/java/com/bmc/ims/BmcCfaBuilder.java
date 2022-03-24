@@ -1,28 +1,6 @@
 package com.bmc.ims;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.Serializable;
-import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-import org.jenkinsci.Symbol;
-import org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SecureGroovyScript;
-import org.jenkinsci.plugins.scriptsecurity.scripts.ApprovalContext;
-import org.kohsuke.stapler.DataBoundConstructor;
-import org.kohsuke.stapler.QueryParameter;
-import org.kohsuke.stapler.StaplerRequest;
-import org.kohsuke.stapler.bind.JavaScriptMethod;
-import org.kohsuke.stapler.verb.POST;
-
 import groovy.lang.Binding;
-import groovy.lang.GroovyShell;
 import hudson.EnvVars;
 import hudson.Extension;
 import hudson.FilePath;
@@ -38,8 +16,19 @@ import hudson.util.ListBoxModel;
 import hudson.util.Secret;
 import jenkins.model.Jenkins;
 import jenkins.tasks.SimpleBuildStep;
-import net.sf.json.JSONObject;
 import org.apache.commons.lang.StringUtils;
+import org.jenkinsci.Symbol;
+import org.jenkinsci.plugins.scriptsecurity.sandbox.groovy.SecureGroovyScript;
+import org.jenkinsci.plugins.scriptsecurity.scripts.ApprovalContext;
+import org.kohsuke.stapler.DataBoundConstructor;
+import org.kohsuke.stapler.QueryParameter;
+import org.kohsuke.stapler.bind.JavaScriptMethod;
+import org.kohsuke.stapler.verb.POST;
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
 
 
 @Extension // annotation is required when writing a pipeline compatible plugin
@@ -68,6 +57,8 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
     private Secret pswd;
     
 	//private static final long serialVersionUID = 1;
+
+
 
 	// to avoid compilation error: annotated classes must have a public no-argument
 	// // constructor
@@ -708,6 +699,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	 * @see jenkins.tasks.SimpleBuildStep#perform(hudson.model.Run, hudson.FilePath,
 	 * hudson.Launcher, hudson.model.TaskListener) For pipeline-compatible plugin
 	 */
+
 	@Override
 	/*
 	 * Deprecated
@@ -715,9 +707,10 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	 */
 	//public void perform(Run<?, ?> run, FilePath workspace, Launcher launcher, TaskListener listener)
 	//		throws InterruptedException, IOException {
-	
+
 	  public void perform(Run<?,?> run, FilePath workspace, EnvVars env, Launcher launcher, TaskListener listener)	
 			  throws InterruptedException, IOException {
+
 		ResponseObject resp = null;
 		String url = "https://" + server + ":" + port + "/zosmf/restjobs/jobs";
 		Properties headers = new Properties();
@@ -1107,7 +1100,8 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 					// }
 					//logfilename = jobname + "-" + jobid + "-" +i;
 					logfilename =ddnamevalarr.get(i);
-					logfileFolderPath=jobname + "-" + jobid;
+					//logfileFolderPath=jobname + "-" + jobid;
+					logfileFolderPath=String.valueOf(run.getNumber());
 					/*
 					fw = new FileWriter(workspace + File.separator + logfilename);
 					bw = new BufferedWriter(fw);
@@ -1208,6 +1202,8 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		 */
 		// }
 
+
+		run.addAction(new BmcCfaAction(run,resp));
 	}// end of perform
 
 	@Extension
