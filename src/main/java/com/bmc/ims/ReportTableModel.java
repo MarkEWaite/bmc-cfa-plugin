@@ -7,7 +7,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Provides the dynamic model for the details table that shows the cfa report.
@@ -30,6 +32,8 @@ public class ReportTableModel extends TableModel {
 
     private JSONArray ja;
 
+
+
     public ReportTableModel(JSONArray ja) {
         super();
         this.ja = ja;
@@ -45,14 +49,14 @@ public class ReportTableModel extends TableModel {
     public List<TableColumn> getColumns() {
         List<TableColumn> columns = new ArrayList<>();
 
-        columns.add(new TableColumn("Job name", "job"));
-        columns.add(new TableColumn("PSB/PLAN Name", "psb"));
+        columns.add(new TableColumn("Job name", "jobName"));
+        columns.add(new TableColumn("PSB/PLAN Name", "planName"));
         columns.add(new TableColumn("Start time", "startTime").setHeaderClass(ColumnCss.DATE));
-        columns.add(new TableColumn("Commits number", "#Commits"));
-        columns.add(new TableColumn("Job Duration", "jobDration"));
-        columns.add(new TableColumn("Commit per min", "comPerMin"));
-        columns.add(new TableColumn("Commit per sec", "comPerSec"));
-        columns.add(new TableColumn("Exceptions", "Exceptions"));
+        columns.add(new TableColumn("Commits number", "commits#"));
+        columns.add(new TableColumn("Job Duration", "jobDuration"));
+        columns.add(new TableColumn("Commit per min", "freqPerMin"));
+        columns.add(new TableColumn("Commit per sec", "freqPerSec"));
+        columns.add(new TableColumn("Exceptions", "exceptions"));
 
         return columns;
     }
@@ -66,8 +70,17 @@ public class ReportTableModel extends TableModel {
         for (int i = 0; i < ja.length(); i++)
         {
             JSONObject obj= (JSONObject) ja.get(i);
-
-            rows.add(new SingleRow( obj.getString("jobName"),
+            Map<String, String> rowsMap = new HashMap<>();
+            rowsMap.put("jobName",obj.getString("jobName"));
+            rowsMap.put("planName",obj.getString("planName"));
+            rowsMap.put("startTime",obj.getString("startTime"));
+            rowsMap.put("commits#",obj.getString("commits#"));
+            rowsMap.put("jobDuration",obj.getString("jobDuration"));
+            rowsMap.put("freqPerMin",obj.getString("freqPerMin"));
+            rowsMap.put("freqPerSec",obj.getString("freqPerSec"));
+            rowsMap.put("exceptions",obj.getString("exceptions"));
+            rows.add(rowsMap);
+  /*          rows.add(new SingleRow( obj.getString("jobName"),
                                     obj.getString("planName"),
                                     obj.getString("startTime"),
                                     obj.getString("commits#"),
@@ -76,13 +89,14 @@ public class ReportTableModel extends TableModel {
                                     obj.getString("freqPerSec"),
                                     obj.getString("exceptions")
                                     ));
-
+*/
         }
+        //return rowsMap.entrySet().stream().filter(e -> e.getValue().matches(".*")).map(Map.Entry::getKey).collect(Collectors.toList());
         return rows;
     }
 
 
-    @SuppressWarnings("PMD.DataClass") // Used to automatically convert to JSON object
+    //@SuppressWarnings("PMD.DataClass") // Used to automatically convert to JSON object
     public static class SingleRow {
 
         private final String jobname,planName,start,com,dur,frePmin,frePersec,exc;
@@ -100,6 +114,36 @@ public class ReportTableModel extends TableModel {
 
         }
 
+        public String getJobname() {
+            return jobname;
+        }
 
+        public String getPlanName() {
+            return planName;
+        }
+
+        public String getStart() {
+            return start;
+        }
+
+        public String getCom() {
+            return com;
+        }
+
+        public String getDur() {
+            return dur;
+        }
+
+        public String getFrePersec() {
+            return frePersec;
+        }
+
+        public String getFrePmin() {
+            return frePmin;
+        }
+
+        public String getExc() {
+            return exc;
+        }
     }
 }

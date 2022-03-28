@@ -1,8 +1,13 @@
 <?jelly escape-by-default='true'?>
-<j:jelly xmlns:j="jelly:core"  xmlns:st="jelly:stapler" xmlns:c="/charts" xmlns:l="/lib/layout" xmlns:bs="/bootstrap" xmlns:dt="/data-tables" >
-<st:adjunct includes="io.jenkins.plugins.data-tables"/>
-<l:layout title="Project Statistics">
-        <l:main-panel>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:dt="/data-tables" xmlns:c="/charts"
+         xmlns:bs="/bootstrap5">
+
+  <st:header name="Content-Type" value="text/html;charset=UTF-8"/>
+
+  <bs:page it="${it}">
+
+    <st:adjunct includes="io.jenkins.plugins.data-tables"/>
+
             <h1>
                 Checkpoint/Commit Frequency Analyzer
             </h1>
@@ -16,8 +21,8 @@
             </bs:card>
 
 
-        </l:main-panel>
-    </l:layout>
+        <!--/l:main-panel-->
+    <!--/l:layout-->
 
-
+    </bs:page>
 </j:jelly>

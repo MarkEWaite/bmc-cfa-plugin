@@ -3,7 +3,7 @@
 # Table of contents
 1. [Overview](#overview)
 2. [Authenticating the SSL Certificate](#cert)  
-3. [Jenkins Requirements](#req)  
+3. [Requirements](#req)  
 4. [Screenshots](#screenshots)
 5. [CFA Job Logs](#joblogs)
 6. [Commit Frequency Report for DB2](#db2rpt)
@@ -12,6 +12,9 @@
 
 ## Overview <a name="overview"></a>
 BMC DevOps for Checkpoint/Commit Frequency Analyzer (CFA) automates the process of reporting application checkpoints/commit information from IMS and DB2 logs. It can be used to illustrate the impact of changes made by application programs on IMS databases, by comparing CFA reports before and after the implemented changes.
+
+**Use case:** 
+The plugin can be included as part of the development life cycle for application development team
 
 The plugin is implemented as a job's build step:
 
@@ -51,8 +54,9 @@ org.jenkinsci.plugins.scriptsecurity.scripts.UnapprovedUsageException: script no
 ![ In-process Script Approval](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/In_process_script_approv.JPG)
 ![ Script Approval](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/ScriptApproval.JPG)
 
-## Jenkins Requirements <a name="req"></a>
-The plugin was developed against Jenkins version **2.303.2**.
+## Requirements <a name="req"></a>
+1. **Jenkins Requirement** - The plugin was developed against Jenkins version **2.303.2**.
+2. **BMC Checkpoint/Commit Frequency Analyzer Requirement - v1.7.00.06**
 
 ## Authenticating the SSL Certificate <a name="cert"></a>
 1. Distribute the z/OS certificate to the appropriate workstation, and import it into Java KeyStore using keytool.
