@@ -1,7 +1,6 @@
 package com.bmc.ims;
 
 import io.jenkins.plugins.datatables.TableColumn;
-import io.jenkins.plugins.datatables.TableColumn.ColumnCss;
 import io.jenkins.plugins.datatables.TableModel;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -31,12 +30,13 @@ import java.util.Map;
 public class ReportTableModel extends TableModel {
 
     private JSONArray ja;
+    String rptType;
 
 
-
-    public ReportTableModel(JSONArray ja) {
+    public ReportTableModel(JSONArray ja, String rptType) {
         super();
         this.ja = ja;
+        this.rptType=rptType;
     }
 
     @Override
@@ -50,9 +50,18 @@ public class ReportTableModel extends TableModel {
         List<TableColumn> columns = new ArrayList<>();
 
         columns.add(new TableColumn("Job name", "jobName"));
-        columns.add(new TableColumn("PSB/PLAN Name", "planName"));
-        columns.add(new TableColumn("Start time", "startTime").setHeaderClass(ColumnCss.DATE));
-        columns.add(new TableColumn("Commits number", "commits#"));
+        if(this.rptType.equals("IMS"))
+            columns.add(new TableColumn("PSB Name", "psbName"));
+        else
+            columns.add(new TableColumn("Plan Name", "planName"));
+  //      columns.add(new TableColumn("Start time", "startTime").setHeaderClass(ColumnCss.DATE));
+        columns.add(new TableColumn("Start time", "startTime"));
+        if(this.rptType.equals("IMS"))
+            columns.add(new TableColumn("#Checkpoints", "chkpt#"));
+        else
+            columns.add(new TableColumn("#Commits", "commits#"));
+        if(this.rptType.equals("IMS"))
+            columns.add(new TableColumn("Checkpoint Type", "chkptType"));
         columns.add(new TableColumn("Job Duration", "jobDuration"));
         columns.add(new TableColumn("Commit per min", "freqPerMin"));
         columns.add(new TableColumn("Commit per sec", "freqPerSec"));
@@ -72,78 +81,26 @@ public class ReportTableModel extends TableModel {
             JSONObject obj= (JSONObject) ja.get(i);
             Map<String, String> rowsMap = new HashMap<>();
             rowsMap.put("jobName",obj.getString("jobName"));
-            rowsMap.put("planName",obj.getString("planName"));
+            if(this.rptType.equals("IMS"))
+                rowsMap.put("psbName",obj.getString("psbName"));
+            else
+                rowsMap.put("planName",obj.getString("planName"));
             rowsMap.put("startTime",obj.getString("startTime"));
-            rowsMap.put("commits#",obj.getString("commits#"));
+            if(this.rptType.equals("IMS")) {
+                rowsMap.put("chkpt#", obj.getString("chkpt#"));
+                rowsMap.put("chkptType#", obj.getString("chkptType"));
+            }
+            else
+                rowsMap.put("commits#", obj.getString("commits#"));
+
             rowsMap.put("jobDuration",obj.getString("jobDuration"));
             rowsMap.put("freqPerMin",obj.getString("freqPerMin"));
             rowsMap.put("freqPerSec",obj.getString("freqPerSec"));
             rowsMap.put("exceptions",obj.getString("exceptions"));
             rows.add(rowsMap);
-  /*          rows.add(new SingleRow( obj.getString("jobName"),
-                                    obj.getString("planName"),
-                                    obj.getString("startTime"),
-                                    obj.getString("commits#"),
-                                    obj.getString("jobDuration"),
-                                    obj.getString("freqPerMin"),
-                                    obj.getString("freqPerSec"),
-                                    obj.getString("exceptions")
-                                    ));
-*/
+
         }
         //return rowsMap.entrySet().stream().filter(e -> e.getValue().matches(".*")).map(Map.Entry::getKey).collect(Collectors.toList());
         return rows;
-    }
-
-
-    //@SuppressWarnings("PMD.DataClass") // Used to automatically convert to JSON object
-    public static class SingleRow {
-
-        private final String jobname,planName,start,com,dur,frePmin,frePersec,exc;
-
-
-        public SingleRow(String jobname,String planName,String start,String com,String dur,String freqPmin,String freqPsec,String Ex) {
-            this.jobname = jobname;
-            this.planName=planName;
-            this.start=start;
-            this.com=com;
-            this.dur=dur;
-            this.frePersec=freqPsec;
-            this.frePmin=freqPmin;
-            this.exc=Ex;
-
-        }
-
-        public String getJobname() {
-            return jobname;
-        }
-
-        public String getPlanName() {
-            return planName;
-        }
-
-        public String getStart() {
-            return start;
-        }
-
-        public String getCom() {
-            return com;
-        }
-
-        public String getDur() {
-            return dur;
-        }
-
-        public String getFrePersec() {
-            return frePersec;
-        }
-
-        public String getFrePmin() {
-            return frePmin;
-        }
-
-        public String getExc() {
-            return exc;
-        }
     }
 }

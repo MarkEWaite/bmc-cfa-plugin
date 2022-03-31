@@ -62,10 +62,10 @@ public class CsvFile {
         else if(rptType.contains("IMS"))
         {
             obj.put("psbName", values[1]);
-            obj.put("cNumber", values[2]);
-            obj.put("cType", values[3]);
-            obj.put("jobDuration", values[4]);
-            obj.put("startTime", values[5]);
+            obj.put("startTime", values[2]);
+            obj.put("chkpt#", values[3]);
+            obj.put("chkptType", values[4]);
+            obj.put("jobDuration", values[5]);
             obj.put("freqPerMin", values[6]);
             obj.put("freqPerSec",values[7]);
             obj.put("exceptions", values[8]);
