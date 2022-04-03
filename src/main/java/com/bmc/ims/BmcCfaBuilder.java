@@ -1342,6 +1342,20 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		}
 
 		@POST
+		public FormValidation doCheckJobname(@QueryParameter String value) {
+
+			FormValidation result = null;
+
+			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
+
+			if(value.length()>8)
+				result=FormValidation.warning("JOBNAME should be 1-8 characters");
+
+			return result;
+		}
+
+
+		@POST
 		public FormValidation doCheckBmcSlds(@QueryParameter boolean value,@QueryParameter boolean bmcImsid) {
 			
 			FormValidation result = null;
