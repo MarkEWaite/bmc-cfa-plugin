@@ -86,8 +86,7 @@ For further information regarding a specific field please refer to BMC AMI Log A
 - [APPCHECK keyword](https://docs.bmc.com/docs/loganalyzer17/appcheck-keyword-958587247.html)
 
 ## CFA Job Logs <a name="joblogs"></a>
-The contents of the CFA job spool files are available in Jenkins job **workspace** in the following format:
-**<CFA_JOBNAME-CFA_JOBID>\<SPOOL_FILENAME>**
+The contents of the CFA job spool files are available in Jenkins job **workspace** under the respective build number folder.
 
 ![CFA job logs](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/workspace.jpg)
 
