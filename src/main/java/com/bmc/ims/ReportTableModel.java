@@ -76,7 +76,8 @@ public class ReportTableModel extends TableModel {
 
         List<Object> rows = new ArrayList<>();
 
-        for (int i = 0; i < ja.length(); i++)
+        //skip the header row
+        for (int i = 1; i < ja.length(); i++)
         {
             JSONObject obj= (JSONObject) ja.get(i);
             Map<String, String> rowsMap = new HashMap<>();
