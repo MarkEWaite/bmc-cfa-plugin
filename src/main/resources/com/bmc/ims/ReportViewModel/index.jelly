@@ -1,0 +1,28 @@
+<?jelly escape-by-default='true'?>
+<j:jelly xmlns:j="jelly:core" xmlns:st="jelly:stapler" xmlns:dt="/data-tables" xmlns:c="/charts"
+         xmlns:bs="/bootstrap5" xmlns:l="/lib/layout">
+
+  <bs:layout title="${it.displayName}" norefesh="true">
+    <st:include it="${it.owner}" page="sidepanel.jelly"/>
+    <l:main-panel>
+
+    <st:adjunct includes="io.jenkins.plugins.data-tables"/>
+
+            <h1>
+                Checkpoint/Commit Frequency Analyzer
+            </h1>
+
+             <bs:card title="${it.displayName} Frequency Report" fontAwesomeIcon="chart-bar">
+                        <dt:table model="${it.getTableModel('cfa')}"/>
+            </bs:card>
+
+            <bs:card title="${it.displayName} Distribution" fontAwesomeIcon="chart-pie">
+                <c:pie-chart id="commit" model="${it.commitModel}" height="256" />
+            </bs:card>
+
+
+        </l:main-panel>
+    </bs:layout>
+
+    <!--/bs:page-->
+</j:jelly>
