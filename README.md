@@ -19,7 +19,7 @@
 
 
 ## Overview <a name="overview"></a>
-BMC DevOps for Checkpoint/Commit Frequency Analyzer (CFA) plugin can be invoked as a Jenkins job's build step, and trigger the process of reporting application checkpoints/commit information from IMS and DB2 logs. It can be used to illustrate the impact of changes made by application programs on IMS databases, by comparing CFA reports before and after the implemented changes.
+BMC DevOps for Checkpoint/Commit Frequency Analyzer (CFA) plugin can be invoked as a Jenkins job's **build step**, and trigger the process of reporting application checkpoints/commit information from IMS and DB2 logs. It can be used to illustrate the impact of changes made by application programs on IMS databases, by comparing CFA reports before and after the implemented changes.
 
 ![BMC build step](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/bmc_build_step.jpg)
 
