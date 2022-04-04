@@ -17,7 +17,7 @@ import java.io.File;
 public class BmcCfaAction extends BuildAction implements StaplerProxy {
     //private transient Run run;
     //private JSONArray ja;
-    FilePath ws;
+    String ws;
     int buildNum;
     Run owner;
     String reportType;
@@ -29,7 +29,7 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
         this.run=owner;
     }
 */
-    public BmcCfaAction(Run owner, int number, FilePath workspace, ResponseObject resp) {
+    public BmcCfaAction(Run owner, int number, String workspace, ResponseObject resp) {
         super(owner, resp, false);
         this.ws=workspace;
         this.buildNum=number;
@@ -54,13 +54,16 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
 
      /**
-      * Returns the detail view for the forensics data for all Stapler requests.
+      * Returns the commit distribution view.
       *
-      * @return the detail view for the forensics data
+      * @return the commit distribution view
       */
 
      @Override
      public Object getTarget() {
+         //if no CSV produced
+         if(getRelatedJob()==null)
+             return 0;
          return new ReportViewModel(this.owner,CsvFile.readCsvFile(getRelatedJob().getPath()),this.reportType);
      }
 
@@ -71,6 +74,8 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
         File dir = new File(this.ws+"\\"+this.buildNum);
         File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
 
+        if(matches.length==0)
+            return null;
         if(matches[0].getPath().contains("IMS"))
             this.reportType="IMS";
         else

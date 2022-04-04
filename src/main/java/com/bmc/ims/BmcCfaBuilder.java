@@ -1203,7 +1203,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		// }
 
 
-		run.addAction(new BmcCfaAction(run,run.getNumber(),workspace,resp));
+		run.addAction(new BmcCfaAction(run,run.getNumber(),workspace.getRemote(),resp));
 	}// end of perform
 
 	@Extension
