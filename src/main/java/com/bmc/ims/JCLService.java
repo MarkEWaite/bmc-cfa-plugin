@@ -75,11 +75,17 @@ public class JCLService {
 	 * token in the header on subsequent requests to the z/OSMF REST services API.
 	 * 
 	 * @param host
+	 *	z/OS host name
 	 * @param port
+	 *	port number
 	 * @param user
+	 * 	user name
 	 * @param pw
+	 *	user password
 	 * @param listener
+	 *	task listener that receives potentialy failure events
 	 * @throws AbortException
+	 * 	abort exception
 	 */
 	public void login(String host, String port, String user, String pw, TaskListener listener) throws AbortException {
 
@@ -541,10 +547,15 @@ public class JCLService {
 	 * Setup the secure connection and do the request.
 	 * 
 	 * @param url
+	 *	z/OS url
 	 * @param method
+	 * 	PUT/GET
 	 * @param requestBody
+	 *	http request's body
 	 * @param headers
+	 *	http request'd header
 	 * @return
+	 *	ResponseObject
 	 */
 	public ResponseObject doRequest(String url, String method, String requestBody, Properties headers,
 			TaskListener listener) {

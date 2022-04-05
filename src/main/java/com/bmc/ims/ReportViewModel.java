@@ -48,13 +48,8 @@ public class ReportViewModel extends DefaultAsyncTableContentProvider implements
         return rptType;
     }
 
-    /**
-     * Creates a pie chart based on data that resides on csv file
-     *
-     * @param \file in csv format
-     *
-     * @return the chart model
-     */
+   
+    // Creates a pie chart based on data that resides on csv file  
 
     public String create() {
         int moreThen5=0, lessThen60=0,others=0;
