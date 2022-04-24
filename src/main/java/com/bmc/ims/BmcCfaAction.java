@@ -21,6 +21,7 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
     int buildNum;
     Run owner;
     String reportType;
+    ResponseObject resp;
 /*
     protected BmcCfaAction(Run owner, Object result)  {
 
@@ -34,6 +35,7 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
         this.ws=workspace;
         this.buildNum=number;
         this.owner=owner;
+        this.resp=resp;
     }
 
 
@@ -61,44 +63,81 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
      @Override
      public Object getTarget() {
-         //if no CSV produced
-         if(getRelatedJob()==null)
-             return 0;
+
          return new ReportViewModel(this.owner,CsvFile.readCsvFile(getRelatedJob().getPath()),this.reportType);
      }
 
 
      public File getRelatedJob() {
 
-        //File dir = new File(((FreeStyleBuild) this.run).getWorkspace()+"\\"+this.run.getNumber());
-        File dir = new File(this.ws+"\\"+this.buildNum);
-        File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
 
-        if(matches.length==0)
-            return null;
-        if(matches[0].getPath().contains("IMS"))
-            this.reportType="IMS";
-        else
-            this.reportType="DB2";
+             //File dir = new File(((FreeStyleBuild) this.run).getWorkspace()+"\\"+this.run.getNumber());
+             File dir = new File(this.ws + "\\" + this.buildNum);
+             File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
 
-
-        return matches[0];
+             if(matches.length!=0) {
+                 if (matches[0].getPath().contains("IMS"))
+                     this.reportType = "IMS";
+                 else
+                     this.reportType = "DB2";
+                 return matches[0];
+             }
+            else
+                return dir;
     }
 
     @Override
     protected AbstractXmlStream createXmlStream() {
-        return null;
+        AbstractXmlStream s=new AbstractXmlStream(this.resp.getClass()) {
+            @Override
+            protected Object createDefaultValue() {
+                 DummyXmlObj d= new DummyXmlObj() ;
+                return d;
+            }
+        };
+        return s;
     }
 
     @Override
-    protected JobAction<? extends BuildAction> createProjectAction() {
-        return null;
+    protected  JobAction createProjectAction() {
+        JobAction j=new JobAction(getOwner().getParent(),this.resp.getClass()) {
+            @Override
+            public String getIconFileName() {
+                return "Dummy";
+            }
+
+            @Override
+            public String getDisplayName() {
+                return "Dummy";
+            }
+
+            @Override
+            public String getUrlName() {
+                return "Dummy";
+            }
+        };
+        return j ;
     }
 
+    /*
+        @Override
+        protected AbstractXmlStream createXmlStream() {
+            return null;
+        }
+
+        @Override
+        protected JobAction<? extends BuildAction> createProjectAction() {
+            return null;
+        }
+    */
     @Override
     protected String getBuildResultBaseName() {
-        return null;
+        return "cfa";
     }
 
 
  }
+
+class DummyXmlObj{
+    String str="Dummy Obj";
+}
