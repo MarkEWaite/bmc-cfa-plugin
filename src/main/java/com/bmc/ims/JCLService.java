@@ -320,9 +320,9 @@ public class JCLService {
 							JSONObject resp = new JSONObject(sb.toString());
 							rc.jobId = resp.getString("jobid");
 							rc.jobName = resp.getString("jobname");
-							rc.jobOwner = resp.getString("owner");
+//							rc.jobOwner = resp.getString("owner");
 							rc.jobStatus=resp.getString("status");
-							rc.jobType = resp.getString("type");
+//							rc.jobType = resp.getString("type");
 							rc.numOfSpoolFiles= String.valueOf(resp.length());
 						}
 					} catch (IOException ioex) {
@@ -363,11 +363,11 @@ public class JCLService {
 							JSONObject resp = new JSONObject(response.toString());
 							rc.jobName = resp.getString("jobname");
 							rc.jobId = resp.getString("jobid");
-							rc.jobOwner = resp.getString("owner");
+	//						rc.jobOwner = resp.getString("owner");
 							rc.jobStatus = resp.getString("status");
-							rc.jobType = resp.getString("type");
+	//						rc.jobType = resp.getString("type");
 							if (resp.getString("status").equals("OUTPUT")) {
-								rc.jobRetCode = resp.getString("retcode");
+	//							rc.jobRetCode = resp.getString("retcode");
 								if (debug)
 									listener.getLogger().println("Response from Job Status:\n " + response.toString());
 							}
