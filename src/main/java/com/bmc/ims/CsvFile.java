@@ -3,10 +3,8 @@ package com.bmc.ims;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.Charset;
 
 public class CsvFile {
 
@@ -18,7 +16,8 @@ public class CsvFile {
 
         JSONArray reportJsonArrayObj = new JSONArray();
         try {
-            br = new BufferedReader(new FileReader(file));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), Charset.defaultCharset()));
+           // br = new BufferedReader(new FileReader(file));
             String line = null;
 
             while ((line = br.readLine()) != null) {
