@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single job that is associated with the input RECON data set 
  */
 
-public class CfaJobname  {
+public class CfaJobname implements Serializable {
 
 	private String jobname;
 	
