@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single SLDS data set
  */
 
-public class CfaReconSet  {
+public class CfaReconSet  implements Serializable{
 
 	private String recon1,recon2,recon3;
 	
