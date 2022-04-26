@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single START radioBlock  
  */
 
-public class Start  {
+public class Start  implements Serializable{
 
 	private String value;
 	private String startDate;
