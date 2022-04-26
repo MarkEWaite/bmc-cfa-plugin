@@ -1,7 +1,7 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
-
+import java.io.Serializable;
 /**
  * Represents a single SLDS data set
  */
