@@ -40,16 +40,16 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	,bmcTimezone,bmcStartInterval,bmcStopInterval,bmcJobInc,bmcJobExc,bmcPsbInc,bmcPsbExc,bmcThresh,bmcChkfreq,bmcAppcheck,bmcAll,bmcLsec,	
 	bmcPlanInc,	bmcPlanExc,	bmcSortby,bmcCsv,bmcFullreport,bmcPrilog;
 	
-	private transient List<CfaLoadLib> cfaLoadLibs = new ArrayList<CfaLoadLib>();
-	private transient List<CfaSldsLib> cfaSldsLibs = new ArrayList<CfaSldsLib>();
-	private transient List<CfaDliLib> cfaDliLibs = new ArrayList<CfaDliLib>();
-	private transient List<CfaImsid>   cfaImsids =   new ArrayList<CfaImsid>();
-	private transient List<CfaJobname>   cfaJobnames =   new ArrayList<CfaJobname>();
-	private transient List<CfaReconSet> cfaReconSets = new ArrayList<CfaReconSet>();
+	private  List<CfaLoadLib> cfaLoadLibs = new ArrayList<CfaLoadLib>();
+	private  List<CfaSldsLib> cfaSldsLibs = new ArrayList<CfaSldsLib>();
+	private  List<CfaDliLib> cfaDliLibs = new ArrayList<CfaDliLib>();
+	private  List<CfaImsid>   cfaImsids =   new ArrayList<CfaImsid>();
+	private  List<CfaJobname>   cfaJobnames =   new ArrayList<CfaJobname>();
+	private  List<CfaReconSet> cfaReconSets = new ArrayList<CfaReconSet>();
 		
-	private transient Start start = new Start("start","","");
-	private transient Stop stop= new Stop("stop","","") ;
-	private transient Timezone tz=new Timezone("local","");
+	private  Start start = new Start("start","","");
+	private  Stop stop= new Stop("stop","","") ;
+	private  Timezone tz=new Timezone("local","");
 			
 	private String groovyScript;
     private SecureGroovyScript script;
