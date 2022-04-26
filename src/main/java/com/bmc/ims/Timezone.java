@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single STOP radioBlock  
  */
 
-public class Timezone  {
+public class Timezone  implements Serializable{
 
 	private String value;
 	private String timezoneoffset;//default value	
