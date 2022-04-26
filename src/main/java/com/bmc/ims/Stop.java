@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single STOP radioBlock  
  */
 
-public class Stop  {
+public class Stop  implements Serializable{
 
 	private String value;
 	private String stopDate;
