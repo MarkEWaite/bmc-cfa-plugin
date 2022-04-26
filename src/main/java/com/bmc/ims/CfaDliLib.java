@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single DLI log data set
  */
 
-public class CfaDliLib  {
+public class CfaDliLib implements Serializable{
 
 	private String dliname,dliver,dliunit,dlivolser;
 	
