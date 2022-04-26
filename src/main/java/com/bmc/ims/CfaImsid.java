@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single IMS system that is associated with the input RECON 
  */
 
-public class CfaImsid  {
+public class CfaImsid  implements Serializable{
 
 	private String imsid;
 	
