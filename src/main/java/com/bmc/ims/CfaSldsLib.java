@@ -6,7 +6,7 @@ import org.kohsuke.stapler.DataBoundConstructor;
  * Represents a single SLDS data set
  */
 
-public class CfaSldsLib  {
+public class CfaSldsLib implements Serializable {
 
 	private String sldsname,sldsver,sldsunit,sldsvolser;
 	
