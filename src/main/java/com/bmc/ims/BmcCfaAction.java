@@ -1,6 +1,7 @@
 package com.bmc.ims;
 
 import edu.umd.cs.findbugs.annotations.CheckForNull;
+import edu.umd.cs.findbugs.annotations.CheckReturnValue;
 import hudson.FilePath;
 import hudson.model.Run;
 import io.jenkins.plugins.util.AbstractXmlStream;
@@ -76,21 +77,24 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
              //File dir = new File(((FreeStyleBuild) this.run).getWorkspace()+"\\"+this.run.getNumber());
              File dir = new File(this.ws + "\\" + this.buildNum);
-             File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
+            try {
+                File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
 
-             if(matches.length!=0) {
-                 if (matches[0].getPath().contains("IMS"))
-                     this.reportType = "IMS";
-                 else
-                     this.reportType = "DB2";
-                 return matches[0];
-             }
-            else
-                return dir;
-    }
+                    if (matches[0].getPath().contains("IMS"))
+                        this.reportType = "IMS";
+                    else
+                        this.reportType = "DB2";
+                    return matches[0];
+
+            }
+            catch(NullPointerException ex){return dir;}
+
+
+     }
 
 
     @Override
+    @CheckForNull
     @SuppressWarnings("NP_NONNULL_RETURN_VIOLATION")
     protected AbstractXmlStream createXmlStream() {
         return null;
