@@ -1,12 +1,13 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
+import java.io.Serializable;
 
 /**
  * Represents a single DLI log data set
  */
 
-public class CfaDliLib  {
+public class CfaDliLib implements Serializable{
 
 	private String dliname,dliver,dliunit,dlivolser;
 	

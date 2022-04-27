@@ -323,7 +323,7 @@ public class JCLService {
 //							rc.jobOwner = resp.getString("owner");
 							rc.jobStatus=resp.getString("status");
 //							rc.jobType = resp.getString("type");
-							rc.numOfSpoolFiles= String.valueOf(resp.length());
+//							rc.numOfSpoolFiles= String.valueOf(resp.length());
 						}
 					} catch (IOException ioex) {
 						listener.getLogger().println("JCLServices: IO Error occured while reading response data");
@@ -424,7 +424,7 @@ public class JCLService {
 							in.close();
 							JSONArray resp = new JSONArray(response.toString());
 							JSONObject singleSpoolFile;
-							rc.numOfSpoolFiles = String.valueOf(resp.length());
+//							rc.numOfSpoolFiles = String.valueOf(resp.length());
 							for (int i = 0; i < resp.length(); i++) {
 								singleSpoolFile = resp.getJSONObject(i);
 								rc.idvalarr.add(String.valueOf(singleSpoolFile.getInt("id")));

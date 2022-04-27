@@ -1,12 +1,12 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
-
+import java.io.Serializable;
 /**
  * Represents a single SLDS data set
  */
 
-public class CfaSldsLib  {
+public class CfaSldsLib implements Serializable {
 
 	private String sldsname,sldsver,sldsunit,sldsvolser;
 	

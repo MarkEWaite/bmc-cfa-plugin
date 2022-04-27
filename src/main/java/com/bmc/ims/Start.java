@@ -1,12 +1,12 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
-
+import java.io.Serializable;
 /**
  * Represents a single START radioBlock  
  */
 
-public class Start  {
+public class Start  implements Serializable{
 
 	private String value;
 	private String startDate;

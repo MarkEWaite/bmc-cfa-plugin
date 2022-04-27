@@ -1,12 +1,12 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
-
+import java.io.Serializable;
 /**
  * Represents a single SLDS data set
  */
 
-public class CfaReconSet  {
+public class CfaReconSet  implements Serializable{
 
 	private String recon1,recon2,recon3;
 	

@@ -1,12 +1,12 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
-
+import java.io.Serializable;
 /**
  * Represents a single STOP radioBlock  
  */
 
-public class Stop  {
+public class Stop  implements Serializable{
 
 	private String value;
 	private String stopDate;

@@ -47,9 +47,9 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	private  List<CfaJobname>   cfaJobnames =   new ArrayList<CfaJobname>();
 	private  List<CfaReconSet> cfaReconSets = new ArrayList<CfaReconSet>();
 		
-	private Start start = new Start("start","","");
-	private Stop stop= new Stop("stop","","") ;
-	private Timezone tz=new Timezone("local","");
+	private  Start start = new Start("start","","");
+	private  Stop stop= new Stop("stop","","") ;
+	private  Timezone tz=new Timezone("local","");
 			
 	private String groovyScript;
     private SecureGroovyScript script;
@@ -701,6 +701,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	 */
 
 	@Override
+	@SuppressWarnings({"NP_NULL_ON_SOME_PATH_EXCEPTION", "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"})
 	/*
 	 * Deprecated
 	 * https://javadoc.jenkins-ci.org/jenkins/tasks/SimpleBuildStep.html
@@ -766,13 +767,14 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	        groovyScript="\"\"\"" + this.jobCard + "\"\"\"";
 	        script = new SecureGroovyScript(groovyScript, false, null).configuringWithKeyItem();
 	        jc=script.evaluate(cl, binding).toString();
+			binding.setVariable("JOB_CARD", jc.toUpperCase());
 		}
 	    catch (Exception e)
 	    {	            
 			e.printStackTrace(listener.error("Failed to evaluate groovy script."));				
 		}
 	     
-		binding.setVariable("JOB_CARD", jc.toUpperCase());		
+
 		
 		List<CfaLoadLib> LoadList = getCfaLoadLibs();
 		int indx1 = 0;
@@ -886,21 +888,23 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 			 groovyScript="\"\"\"" + this.jclContent + "\"\"\"";
 		     script = new SecureGroovyScript(groovyScript, false, null).configuring(ApprovalContext.create());
 		     body=script.evaluate(cl, binding).toString().replace(",,","");
+			 body=body.replace("(,", "(");
+			 body=body.replace(",)", ")");
+			 //This will replace every 72 characters with the same 80 characters and add a new line at the end
+			 //body=body.replaceAll("(.{72})", "$1\n");
+
+			 body=adjustBodyTo72Chars(body);
+
+			 listener.getLogger().println("body:\n" + body);
 		 }
-		    catch (Exception e)
-		    {	            
+		 catch (Exception e)
+		 {
 				e.printStackTrace(listener.error("Failed to evaluate groovy script."));				
-			}
+		}
 		 
-		body=body.replace("(,", "(");
-		body=body.replace(",)", ")");
+
 	
-		//This will replace every 72 characters with the same 80 characters and add a new line at the end
-		//body=body.replaceAll("(.{72})", "$1\n");
-	
-		body=adjustBodyTo72Chars(body);		
-		
-		listener.getLogger().println("body:\n" + body);
+
 
 		/***************************/
 		/* Set headers */
@@ -1111,7 +1115,10 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 					File logfileFolder = new File(workspace + File.separator +logfileFolderPath);
 					if (!logfileFolder.exists())
 					{
-						logfileFolder.mkdirs();
+						if (logfileFolder.mkdirs()) {
+							System.out.println("directory " + logfileFolder+ " created");
+						}
+
 					}
 					w = new OutputStreamWriter(new FileOutputStream(workspace + File.separator + logfileFolderPath + File.separator+ logfilename), "UTF-8");
 					pw = new PrintWriter(w);						

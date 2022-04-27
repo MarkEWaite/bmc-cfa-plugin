@@ -1,12 +1,12 @@
 package com.bmc.ims;
 
 import org.kohsuke.stapler.DataBoundConstructor;
-
+import java.io.Serializable;
 /**
  * Represents a single DELTA PLUS load library
  */
 
-public class CfaLoadLib  {
+public class CfaLoadLib implements Serializable {
 
 	private String lib;
 	
