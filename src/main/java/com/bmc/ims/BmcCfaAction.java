@@ -63,13 +63,14 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
       */
 
      @Override
+     @SuppressWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
      public Object getTarget() {
 
          return new ReportViewModel(this.owner,CsvFile.readCsvFile(getRelatedJob().getPath()),this.reportType);
      }
 
-    @CheckForNull
-    @SuppressWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
+
+     @SuppressWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
      public File getRelatedJob() {
 
 
@@ -90,27 +91,12 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
 
     @Override
-    @CheckForNull
     @SuppressWarnings("NP_NONNULL_RETURN_VIOLATION")
     protected AbstractXmlStream createXmlStream() {
         return null;
     }
 
-    /*
-        @CheckForNull
-        @SuppressWarnings("UR_UNINIT_READ_CALLED_FROM_SUPER_CONSTRUCTOR")
-        @Override
-        protected AbstractXmlStream createXmlStream() {
-            AbstractXmlStream s=new AbstractXmlStream(this.resp.getClass()) {
-                @Override
-                protected Object createDefaultValue() {
-                     DummyXmlObj d= new DummyXmlObj() ;
-                    return d;
-                }
-            };
-            return s;
-        }
-    */
+
     @Override
     @CheckForNull
     @SuppressWarnings("NP_NONNULL_RETURN_VIOLATION")
@@ -118,49 +104,9 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
         return null;
     }
 
-    /*
-        @Override
-        protected  JobAction createProjectAction() {
-            JobAction j=new JobAction(getOwner().getParent(),this.resp.getClass()) {
-                @Override
-                public String getIconFileName() {
-                    return "Dummy";
-                }
 
-                @Override
-                public String getDisplayName() {
-                    return "Dummy";
-                }
-
-                @Override
-                public String getUrlName() {
-                    return "Dummy";
-                }
-            };
-            return j ;
-        }
-    */
-    /*
-        @Override
-        protected AbstractXmlStream createXmlStream() {
-            return null;
-        }
-
-        @Override
-        protected JobAction<? extends BuildAction> createProjectAction() {
-            return null;
-        }
-    */
     @Override
     protected String getBuildResultBaseName() {
         return "cfa";
     }
-
-
  }
-/*
-class DummyXmlObj{
-    String str="Dummy Obj";
-}
-
- */

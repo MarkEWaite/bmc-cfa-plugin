@@ -701,6 +701,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 	 */
 
 	@Override
+	@SuppressWarnings({"NP_NULL_ON_SOME_PATH_EXCEPTION", "RV_RETURN_VALUE_IGNORED_BAD_PRACTICE"})
 	/*
 	 * Deprecated
 	 * https://javadoc.jenkins-ci.org/jenkins/tasks/SimpleBuildStep.html
