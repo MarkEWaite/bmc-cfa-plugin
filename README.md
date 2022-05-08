@@ -91,7 +91,7 @@ The contents of the CFA job spool files are available in Jenkins job **workspace
 ![CFA job logs](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/workspace.jpg)
 
 For further information regarding a specific report please refer to:
-- [SUMMARY](https://docs.bmc.com/docs/loganalyzer17/using-the-luow-summary-report-958587335.html)
+- [SUMMARY](https://docs.bmc.com/docs/loganalyzer17/using-the-analysis-summary-report-958587322.html)
 - [REPRTIMS](https://docs.bmc.com/docs/loganalyzer17/using-the-application-checkpoint-report-958587359.html)
 - [SYSOUT](https://docs.bmc.com/docs/loganalyzer17/sysout-dd-statement-958587165.html)
 
