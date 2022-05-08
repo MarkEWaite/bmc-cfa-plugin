@@ -26,6 +26,7 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Base64;
 
 import java.util.List;
 import java.util.ListIterator;
@@ -34,8 +35,6 @@ import java.util.Properties;
 import java.util.Set;
 
 import javax.net.ssl.HttpsURLConnection;
-
-import javax.xml.bind.DatatypeConverter;
 
 import org.json.JSONObject;
 import org.json.JSONArray;
@@ -90,7 +89,7 @@ public class JCLService {
 	public void login(String host, String port, String user, String pw, TaskListener listener) throws AbortException {
 
 		String toEncode = user + ":" + pw;
-		this.encodedCredentials = DatatypeConverter.printBase64Binary(toEncode.getBytes(Charset.forName("UTF-8")));
+		this.encodedCredentials = Base64.getEncoder().encodeToString(toEncode.getBytes(Charset.forName("UTF-8")));
 		boolean displayError = false;
 		hostUrl = "https://" + host + ":" + port;
 		String validateUrl = hostUrl + "/zosmf/info";
