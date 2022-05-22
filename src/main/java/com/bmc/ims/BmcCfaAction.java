@@ -80,7 +80,7 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
             try {
                 File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
 
-                    if (matches[0].getPath().contains("IMS"))
+                    if (matches[0].getPath().contains("IMS") || matches[0].getPath().contains("DLI") )
                         this.reportType = "IMS";
                     else
                         this.reportType = "DB2";
