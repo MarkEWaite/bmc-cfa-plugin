@@ -116,3 +116,4 @@ For further information regarding a specific report please refer to:
 	* log
 3. System log: **Jenkins**->**Manage Jenkins**->**System Log**
 4. **config.xml** in C:\Users\\*user_name*\\AppData\Local\Jenkins\.jenkins\jobs\\*job_name*
+
