@@ -58,7 +58,7 @@ public class CsvFile {
             obj.put("freqPerSec",values[7]);
             obj.put("exceptions", values[8]);
         }
-        else if(rptType.contains("IMS"))
+        else if(rptType.contains("IMS") || rptType.contains("DLI") )
         {
             obj.put("psbName", values[1]);
             obj.put("startTime", values[2]);

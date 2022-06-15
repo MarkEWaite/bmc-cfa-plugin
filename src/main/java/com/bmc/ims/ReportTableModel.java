@@ -89,7 +89,7 @@ public class ReportTableModel extends TableModel {
             rowsMap.put("startTime",obj.getString("startTime"));
             if(this.rptType.equals("IMS")) {
                 rowsMap.put("chkpt#", obj.getString("chkpt#"));
-                rowsMap.put("chkptType#", obj.getString("chkptType"));
+                rowsMap.put("chkptType", obj.getString("chkptType"));
             }
             else
                 rowsMap.put("commits#", obj.getString("commits#"));

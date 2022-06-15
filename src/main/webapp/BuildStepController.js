@@ -71,7 +71,8 @@
    	
     var updateOptionalBlockCounter=0;
     var totalNumOfoperands=29;    //should match the total number of optional keywords
-    
+
+    var sectionClassName;
     /* ************************************************************************ */
     /*			 																*/
 	/* Override onAdd in														*/
@@ -115,13 +116,13 @@
    	/* c - checkbox on the optionalBlock																				*/
    	/*																													*/
    	/* The function is being invoked per each optionalBlock when the page is loaded.									*/
-   	/* At this point we're not interested in populating the JCL, but reading it from config.xml instead.						*/
+   	/* At this point we're not interested in populating the JCL, but reading it from config.xml instead.				*/
    	/* Thus, we keep a counter that counts the number of times it was invoked,											*/
    	/* and when the counter reaches the total number of optionalBlocks- 												*/
    	/* this is an indication that the function was triggered by the user, and now we can update the JCL.				*/
    	/* When a new build is added the counter is being reset to 0, and the JCL will be populated with the default value. */ 
    	/*				
-   	 * <div class="rowSet-container">
+   	 * <div class="rowSet-container">   <ZENG-260139> since Jenkins version >2.332.3 class name was changed to "jenkins-section"
 				|			
 				⛛	
 			<div class="optionalBlock-container">
@@ -229,22 +230,33 @@
 			while(section!=null)
 			{
 				section=section.nextSibling;   					
-				
-				sectionTitle=section.firstChild.firstChild.firstChild.innerHTML;
+
+				if (sectionClassName=="jenkins-section")
+				    sectionTitle=section.firstChild.innerHTML;
+				else if(sectionClassName=="rowSet-container")
+				    sectionTitle=section.firstChild.firstChild.firstChild.innerHTML;
 				
 				if(sectionTitle=="ANALYZE Keywords" || sectionTitle== "INTERVAL Keywords" || sectionTitle== "REPORTS Keywords" || sectionTitle=="BMC CFA Options")
 					for(optBlck of section.children)
 		   			{
 		   				if(optBlck.className.includes("optionalBlock-container"))
 		   				{
-		   					cbox=optBlck.firstChild.firstChild.firstChild;
+		   				    if (sectionClassName=="rowSet-container")
+		   				        cbox=optBlck.firstChild.firstChild.firstChild;
+		   				    else if (sectionClassName=="jenkins-section")
+		   					    cbox=isolateCboxFromSpan(optBlck);
+
 		   					toggleOptionalOperands(cbox,curr_stepid,event);
-		   					if(cbox.name=="bmcAppcheck")
+
+		   					if(cbox.getAttribute("name")=="bmcAppcheck")
 		   					{
 		   						for( appcheckOpt of optBlck.children[3].children)
 		   						{
-   		   						appcbox=appcheckOpt.firstChild.firstChild.firstChild;
-   	   							toggleOptionalOperands(appcbox,curr_stepid,event);
+		   						    if (sectionClassName=="rowSet-container")
+   		   						        appcbox=appcheckOpt.firstChild.firstChild.firstChild;
+   		   						     else if (sectionClassName=="jenkins-section")
+                                        appcbox=isolateCboxFromSpan(appcheckOpt);
+   	   							    toggleOptionalOperands(appcbox,curr_stepid,event);
 		   						}
 		   					
 		   					}
@@ -254,6 +266,16 @@
 					break;   					
 			}//end while   	
 			populateJcl(curr_stepid);	  		
+   	}
+
+   	function isolateCboxFromSpan(optBlck)
+   	{
+   	    xmlString=optBlck.firstChild.firstChild.firstChild.innerHTML;
+        tmpArr=xmlString.split("id=\"");
+        arr2=tmpArr[1].split("\"");
+        id=arr2[0];
+        //cbox = (new DOMParser().parseFromString(xmlString, "text/xml")).firstChild;
+        return cbox = document.getElementById(id);
    	}
    	/**
    	 * The function calculates load libraries on a single build step.
@@ -371,7 +393,15 @@
 		{	
 			previous=previous.parentNode;
 			if(previous.className.includes("rowSet-container"))
+			{
+			    sectionClassName="rowSet-container";
 					break;
+			}
+			else if(previous.className.includes("jenkins-section"))
+			{
+                sectionClassName="jenkins-section";
+            		break;
+            }
 			
 		}
   		return previous;
@@ -412,16 +442,34 @@
 		while(el.tagName=="DIV")   					
 		{
  			el=el.parentNode;
- 			if(el.className.includes("rowSet-container"))
+ 			if(el.className.includes("rowSet-container") )
+ 			{
+ 			    sectionClassName="rowSet-container";
  				break;
+ 			}
+ 			else if(el.className.includes("jenkins-section"))
+            {
+                sectionClassName="jenkins-section";
+            	break;
+            }
 		}
 		return el;
 	}
 	//----------------------------------------------
 	function findConRowSetContainer(cont)
 	{
-		while(cont.firstChild.firstChild.firstChild.innerHTML!=="Connection Options")
+	    if(sectionClassName=="jenkins-section")
+	        sectionTitle=cont.firstChild.innerHTML;
+	    else if(sectionClassName=="rowSet-container")
+	        sectionTitle=cont.firstChild.firstChild.firstChild.innerHTML;
+		while(sectionTitle!=="Connection Options")
+		{
 			cont=cont.previousSibling;
+			if(sectionClassName=="jenkins-section")
+            	sectionTitle=cont.firstChild.innerHTML;
+            else if(sectionClassName=="rowSet-container")
+                sectionTitle=cont.firstChild.firstChild.firstChild.innerHTML;
+		}
 		connContainer=cont;
 		return connContainer;
 	}
@@ -456,8 +504,17 @@
 			while(el.tagName=="DIV")
 			{
 				el=el.parentNode;
-				if(el.className.includes("rowSet-container"))
+				if(el.className.includes("rowSet-container") )
+				{
+				    sectionClassName="rowSet-container";
 					break;
+				}
+				else if(el.className.includes("jenkins-section"))
+				{
+				    sectionClassName="jenkins-section";
+                	break;
+				}
+
 			}
 			c=el.nextSibling.children[1].firstChild.firstChild.firstChild; //send SLDS checkbox to refresh ALL
 			
@@ -557,8 +614,12 @@
 	  	 * 	findSLDSContainerFromCheckbox 	  	
 	  	 * ****************************************************************************************************/	
 		function findSLDSContainerFromCheckbox(sldsOptionalBlock)
-		{
-			previous=sldsOptionalBlock.parentNode;
+        {
+            if (sectionClassName=="jenkins-section")
+                previous=sldsOptionalBlock.parentNode.parentNode; //<div><span><cbox></span></div>
+           else if(sectionClassName=="rowSet-container")
+            	previous=sldsOptionalBlock.parentNode;
+
 			while(previous.tagName=="DIV")
 			{
 				previous=previous.parentNode;
@@ -594,7 +655,7 @@
 	  	 * ****************************************************************************************************/			
 		function toggleOptionalOperands(chkbox,stepid,event)
 		{			
-	  			switch(chkbox.name) 
+	  			switch(chkbox.getAttribute("name"))
 	  			{
 	  				case "bmcSlds":
 	  					toggleSlds(chkbox,event);
@@ -713,8 +774,16 @@
 	  			while(tmp.tagName=="DIV")
 	  				{
 	  					tmp=tmp.parentNode;
-	  					if(tmp.className.includes("rowSet-container"))
+	  					if(tmp.className.includes("rowSet-container") )
+	  					{
+	  					    sectionClassName="rowSet-container";
 	  						break;
+	  					}
+	  					else if(tmp.className.includes("jenkins-section"))
+	  					{
+	  					    sectionClassName="jenkins-section";
+   	  						break;
+	  					}
 	  				}
 	  			tmp=tmp.nextSibling.children[1].children[1].firstChild;
 	  			refreshLoadLibs(tmp);

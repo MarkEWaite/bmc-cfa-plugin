@@ -1138,7 +1138,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 						{
 							listener.getLogger().println(errormsg);
 							run.setResult(Result.FAILURE);							
-							
+							break;
 						}
 
 					}
