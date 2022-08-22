@@ -22,7 +22,7 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
     String ws;
     int buildNum;
     Run owner;
-    String reportType;
+    String reportType,jobid, csvFileName;
     ResponseObject resp;
 /*
     protected BmcCfaAction(Run owner, Object result)  {
@@ -32,12 +32,14 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
         this.run=owner;
     }
 */
-    public BmcCfaAction(Run owner, int number, String workspace, ResponseObject resp) {
+    public BmcCfaAction(Run owner, int number, String workspace, ResponseObject resp, String jobid, String csvFileName) {
         super(owner, resp, false);
         this.ws=workspace;
         this.buildNum=number;
         this.owner=owner;
         this.resp=resp;
+        this.jobid=jobid;
+        this.csvFileName=csvFileName;
     }
 
 
@@ -76,9 +78,9 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
 
              //File dir = new File(((FreeStyleBuild) this.run).getWorkspace()+"\\"+this.run.getNumber());
-             File dir = new File(this.ws + "\\" + this.buildNum);
+             File dir = new File(this.ws + File.separator + this.buildNum + File.separator+ this.jobid);
             try {
-                File[] matches = dir.listFiles((dir1, name) -> name.contains("CSV"));
+                File[] matches = dir.listFiles((dir1, name) -> name.contains(this.csvFileName));
 
                     if (matches[0].getPath().contains("IMS") || matches[0].getPath().contains("DLI") )
                         this.reportType = "IMS";
