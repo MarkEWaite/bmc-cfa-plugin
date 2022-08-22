@@ -677,18 +677,19 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 					}
 				}//end for loop				
 			}
-			else if(body.indexOf("\n")<=73)
-			{				
-				//String[] temp=body.split("\\n");				
-				processedBody=processedBody.concat(body.substring(0,body.indexOf("\n")+1));				
-				body=body.substring(body.indexOf("\n")+1);			
-			}
 			// last line
 			else if(body.indexOf("\n")==-1)
 			{
 				processedBody=processedBody.concat(body);
 				body=body.substring(0,0); //sets length to 0
 			}
+			else if(body.indexOf("\n")<=73)
+			{				
+				//String[] temp=body.split("\\n");				
+				processedBody=processedBody.concat(body.substring(0,body.indexOf("\n")+1));				
+				body=body.substring(body.indexOf("\n")+1);			
+			}
+
 		}
 		
 		return processedBody;
@@ -1112,7 +1113,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 					bw.write(append_data.toString());					
 					File file = new File(someFilePath);					  
 					*/
-					File logfileFolder = new File(workspace + File.separator +logfileFolderPath);
+					File logfileFolder = new File(workspace + File.separator +logfileFolderPath+ File.separator+jobid);
 					if (!logfileFolder.exists())
 					{
 						if (logfileFolder.mkdirs()) {
@@ -1120,7 +1121,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 						}
 
 					}
-					w = new OutputStreamWriter(new FileOutputStream(workspace + File.separator + logfileFolderPath + File.separator+ logfilename), "UTF-8");
+					w = new OutputStreamWriter(new FileOutputStream(workspace + File.separator + logfileFolderPath + File.separator+jobid+File.separator+ logfilename), "UTF-8");
 					pw = new PrintWriter(w);						
 					String inputLine;
 					BufferedReader in = null;
@@ -1170,7 +1171,11 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 			// if (debug) {
 			//listener.getLogger().println("Job log successfully placed in buffer...");
 			// }
-		} 
+			for( String i: ddnamevalarr) {
+				if (i.contains("CSV"))
+					run.addAction(new BmcCfaAction(run, run.getNumber(), workspace.getRemote(), resp, jobid,i));
+			}
+		} //end of try
 
 		
 		 catch (IOException ioex) {
@@ -1210,7 +1215,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		// }
 
 
-		run.addAction(new BmcCfaAction(run,run.getNumber(),workspace.getRemote(),resp));
+
 	}// end of perform
 
 	@Extension
