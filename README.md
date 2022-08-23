@@ -12,10 +12,11 @@
 9. [Required information for diagnosing problems](#diag)
 
 ## Requirements <a name="req"></a>
-| Required software                                    | Version   |
-|------------------------------------------------------|-----------|
-| Jenkins                                              | 2.303.2   |
-| BMC Checkpoint/Commit Frequency Analyzer Requirement | 1.7.00.06 |
+| Required software                        | Version   |
+|------------------------------------------|-----------|
+| Jenkins                                  | 2.303.2   |
+| BMC Checkpoint/Commit Frequency Analyzer | 1.7.00.06 |
+| z/OSMF                                   |           |
 
 
 ## Overview <a name="overview"></a>
