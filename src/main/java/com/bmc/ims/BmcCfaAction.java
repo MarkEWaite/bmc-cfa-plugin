@@ -50,12 +50,12 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
     @Override
     public String getDisplayName() {
-        return "Commit Distribution - "+this.jobid;
+        return "Commit Distribution - "+this.jobid+" - "+ this.csvFileName;
     }
 
     @Override
     public String getUrlName() {
-        return "stat"+this.jobid;
+        return "stat/"+this.jobid+"/"+this.csvFileName;
     }
 
 
@@ -113,6 +113,6 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
     @Override
     protected String getBuildResultBaseName() {
-        return "cfa"+this.jobid;
+        return "cfa"+this.jobid+this.csvFileName;
     }
  }
