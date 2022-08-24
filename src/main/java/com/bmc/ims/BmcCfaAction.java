@@ -55,7 +55,7 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
     @Override
     public String getUrlName() {
-        return "stat/"+this.jobid+"/"+this.csvFileName;
+        return "stat"+this.jobid+this.csvFileName;
     }
 
 
