@@ -1259,7 +1259,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		@Override
 		public String getDisplayName() {
 			// TODO Auto-generated method stub
-			return "BMC DevOps for CFA";
+			return "BMC AMI DevOps for Application Checkpoint Analysis";
 
 		}
 

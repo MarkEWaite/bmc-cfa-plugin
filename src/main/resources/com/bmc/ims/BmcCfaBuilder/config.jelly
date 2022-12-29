@@ -29,7 +29,7 @@
 		
 	</f:section>
 
-	<f:section title="BMC CFA Options"> 		
+	<f:section title="BMC AMI DevOps for Application Checkpoint Analysis Options"> 		
   
   		<f:entry title="STEPLIB" >
   			<f:repeatable name="builder.cfaLoadLibs" var="v" items="${instance.cfaLoadLibs}" minimum="1" add="Add library">
