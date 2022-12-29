@@ -20,7 +20,7 @@
 
 
 ## Overview <a name="overview"></a>
-BMC AMI DevOps for Application Checkpoint Analysis plugin can be invoked as a Jenkins job's **build step**, and trigger the process of reporting application checkpoints/commit information from IMS and DB2 logs. It can be used to illustrate the impact of changes made by application programs on IMS databases, by comparing CFA reports before and after the implemented changes.
+BMC AMI DevOps for Application Checkpoint Analysis plugin can be invoked as a Jenkins job's **build step**, and trigger the process of reporting application checkpoints/commit information from IMS and DB2 logs. It can be used to illustrate the impact of changes made by application programs on IMS databases, by comparing checkpoint reports before and after the implemented changes.
 
 ![BMC build step](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/bmc_build_step.jpg)
 
@@ -28,7 +28,7 @@ BMC AMI DevOps for Application Checkpoint Analysis plugin can be invoked as a Je
 The plugin can be integrated as part of the development life cycle for application development team, where one of the steps does checkpoint/commit analysis.
 
 
-It uses z/OSMF REST API to submit the following CFA job to run on z/OS.
+It uses z/OSMF REST API to submit the following job to run on z/OS.
 ```
 //CFRDEVOP JOB (${ACCTNO}),'CFA REPORT',NOTIFY=&SYSUID,
 //         CLASS=A,MSGCLASS=X,REGION=0M
