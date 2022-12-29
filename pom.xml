@@ -17,7 +17,7 @@
         <java.level>8</java.level>
         <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
      </properties>
-    <name>BMC DevOps for CFA</name>
+    <name>BMC AMI DevOps for Application Checkpoint Analysis</name>
     
     <licenses>
     	<license>
