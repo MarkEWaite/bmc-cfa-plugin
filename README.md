@@ -5,7 +5,7 @@
 2. [Overview](#overview)
 3. [Authenticating the SSL Certificate](#cert)  
 4. [Screenshots](#screenshots)
-5. [CFA Job Logs](#joblogs)
+5. [Job Logs](#joblogs)
 6. [Commit Frequency Report for DB2](#db2rpt)
 7. [Commit Frequency Report for IMS](#imsrpt)
 8. [Checkpoint/Commit Distribution Action](#imsrpt) 
@@ -86,10 +86,10 @@ For further information regarding a specific field please refer to BMC AMI Log A
 - [Specifying INTERVAL control statements](https://docs.bmc.com/docs/loganalyzer17/specifying-interval-control-statements-958587198.html)
 - [APPCHECK keyword](https://docs.bmc.com/docs/loganalyzer17/appcheck-keyword-958587247.html)
 
-## CFA Job Logs <a name="joblogs"></a>
-The contents of the CFA job spool files are available in Jenkins job **workspace** under the respective build number folder.
+## Job Logs <a name="joblogs"></a>
+The contents of the job spool files are available in Jenkins job **workspace** under the respective build number folder.
 
-![CFA job logs](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/workspace.jpg)
+![job logs](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/workspace.jpg)
 
 For further information regarding a specific report please refer to:
 - [SUMMARY](https://docs.bmc.com/docs/loganalyzer17/using-the-analysis-summary-report-958587322.html)
