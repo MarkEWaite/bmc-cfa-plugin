@@ -77,7 +77,7 @@ You will be asked for password (which is by default : changeit). Enter the passw
 Restart your Java Virtual Machine or your computer.
 
 ## Screenshots: <a name="screenshots"></a>
-![BMC CFA Plugin](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/cfa_plugin.JPG)
+![BMC CFA Plugin](https://github.com/jenkinsci/bmc-cfa-plugin/blob/main/src/main/webapp/images/cfa_plugin.jpg) 
 
 For details of the dialog box fields, click the question mark icon next to each field.
 
