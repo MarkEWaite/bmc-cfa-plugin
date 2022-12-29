@@ -1,4 +1,4 @@
-# BMC DevOps for Checkpoint/Commit Frequency Analyzer   
+# BMC AMI DevOps for Application Checkpoint Analysis  
 [![Jenkins Plugin](https://img.shields.io/jenkins/plugin/v/bmc-cfa.svg)](https://plugins.jenkins.io/bmc-cfa) 
 # Table of contents
 1. [Requirements](#req)
