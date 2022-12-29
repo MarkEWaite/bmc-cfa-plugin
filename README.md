@@ -15,7 +15,7 @@
 | Required software                        | Version   |
 |------------------------------------------|-----------|
 | Jenkins                                  | 2.303.2   |
-| BMC Checkpoint/Commit Frequency Analyzer | 1.7.00.06 |
+| BMC AMI Log Analyzer for IMS             | 1.7.00    |
 | z/OSMF                                   |           |
 
 
