@@ -4,7 +4,7 @@
     <parent>
         <groupId>org.jenkins-ci.plugins</groupId>
         <artifactId>plugin</artifactId>
-        <version>4.16</version>
+        <version>4.52</version>
         <relativePath />
     </parent>
     <groupId>com.bmc.ims</groupId>
@@ -13,8 +13,8 @@
     <packaging>hpi</packaging>
     <properties>	
         <changelist>999999-SNAPSHOT</changelist>
-        <jenkins.version>2.303.2</jenkins.version>
-        <java.level>8</java.level>
+        <jenkins.version>2.387.2</jenkins.version>
+        <java.level>20</java.level>
         <gitHubRepo>jenkinsci/${project.artifactId}-plugin</gitHubRepo>
      </properties>
     <name>BMC AMI DevOps for Application Checkpoint Analysis</name>
@@ -97,7 +97,37 @@
     <build>    	
     	<pluginManagement>
     		<plugins>
-    			 
+				<plugin>
+					<artifactId>maven-enforcer-plugin</artifactId>
+					<configuration>
+						<skip>true</skip>
+					</configuration>
+				</plugin>
+
+				<plugin>
+				<groupId>org.jenkins-ci.tools</groupId>
+				<artifactId>maven-hpi-plugin</artifactId>
+				<version>3.17</version>
+				<extensions>true</extensions>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<minimumJavaVersion>20</minimumJavaVersion>
+							<!--showDeprecation>true</showDeprecation-->
+							<webApp>
+								<contextPath>/jenkins</contextPath>
+							</webApp>
+							<systemProperties>
+								<hudson.Main.development>true</hudson.Main.development>
+							</systemProperties>
+						</configuration>
+					</execution>
+				</executions>
+				</plugin>
     			<!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.-->
     			<plugin>
     				<groupId>org.eclipse.m2e</groupId>
@@ -195,7 +225,7 @@
     										access-modifier-checker
     									</artifactId>
     									<versionRange>
-    										[1.21,)
+    										[1.3,)
     									</versionRange>
     									<goals>
     										<goal>enforce</goal>
