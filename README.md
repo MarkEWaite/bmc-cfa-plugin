@@ -12,11 +12,11 @@
 9. [Required information for diagnosing problems](#diag)
 
 ## Requirements <a name="req"></a>
-| Required software                        | Version   |
-|------------------------------------------|-----------|
-| Jenkins                                  | 2.303.2   |
-| BMC AMI Log Analyzer for IMS             | 1.7.00    |
-| z/OSMF                                   |           |
+| Required software                        | Version |
+|------------------------------------------|---------|
+| Jenkins                                  | 2.387.2 |
+| BMC AMI Log Analyzer for IMS             | 1.7.00  |
+| z/OSMF                                   |         |
 
 
 ## Overview <a name="overview"></a>
