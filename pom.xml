@@ -114,7 +114,7 @@
 						<verbose>true</verbose>
 					</configuration>
 				</plugin-->
-				<plugin>
+				<!--plugin>
 					<groupId>org.jenkins-ci.tools</groupId>
 					<artifactId>maven-hpi-plugin</artifactId>
 					<version>3.17</version>
@@ -127,7 +127,7 @@
 							</goals>
 							<configuration>
 								<minimumJavaVersion>11</minimumJavaVersion>
-								<!--showDeprecation>true</showDeprecation-->
+
 								<webApp>
 									<contextPath>/jenkins</contextPath>
 								</webApp>
@@ -137,7 +137,7 @@
 							</configuration>
 						</execution>
 					</executions>
-				</plugin>
+				</plugin-->
     			
     			 <plugin>
 					<groupId>org.apache.maven.plugins</groupId>
