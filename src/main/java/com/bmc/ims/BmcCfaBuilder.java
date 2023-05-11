@@ -1379,24 +1379,7 @@ public class BmcCfaBuilder extends Builder implements SimpleBuildStep, Serializa
 		}
 
 
-		@POST
-		public FormValidation doCheckServer(@QueryParameter String value) {
-			
-			FormValidation result = null;
 
-			Jenkins.get().checkPermission(Jenkins.ADMINISTER);
-			 
-			String tempValue = StringUtils.trimToEmpty(value);
-			if (tempValue.isEmpty())
-			{
-				result = FormValidation.error("Server name is required!");
-			}
-			else
-			{
-				
-			}
-			return result;
-		}
 		
 		@POST	
 		public FormValidation doCheckPort(@QueryParameter String value) 

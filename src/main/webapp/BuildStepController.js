@@ -95,7 +95,7 @@
 	/* jenkins/core/src/main/resources/lib/form/repeatable/repeatable.js		*/
    	/*			 																*/
 	/* ************************************************************************ */  
-   	Behaviour.specify("INPUT.repeatable-delete", 'repeatable', 0, function(e) 
+  /* 	Behaviour.specify("INPUT.repeatable-delete", 'repeatable', 0, function(e)
    		{
    			makeButton(e,function(e)
    			{        			
@@ -104,7 +104,18 @@
         	});
    			e = null; // avoid memory leak
     	});
-   	
+   	*/
+   		Behaviour.specify(
+          "BUTTON.repeatable-delete, INPUT.repeatable-delete",
+          "repeatable",
+          1,
+          function (e) {
+            e.addEventListener("click", function () {
+              repeatableSupport.onDelete(e);
+              addOrRemoveChunk(e);// new code
+            });
+          }
+        );
     // validate required form values
     //Behaviour.specify("INPUT.required", "input-required", 1000, function(e) { registerRegexpValidator(e,/./,"Field is required"); });
    	   	
@@ -122,13 +133,14 @@
    	/* this is an indication that the function was triggered by the user, and now we can update the JCL.				*/
    	/* When a new build is added the counter is being reset to 0, and the JCL will be populated with the default value. */ 
    	/*				
-   	 * <div class="rowSet-container">   <ZENG-260139> since Jenkins version >2.332.3 class name was changed to "jenkins-section"
-				|			
-				⛛	
-			<div class="optionalBlock-container">
-					|
-					⛛
-   				<input type="checkbox">																					*/ 
+   	/* <!--div class="rowSet-container"--!>                                                                             */
+      	/*  <div class="jenkins-section">   <ZENG-260139> since Jenkins version >2.332.3 class name was changed to "jenkins-section"
+   	/*			|			                                                                                            */
+   	/*			⛛	                                                                                                    */
+   	/*		<div class="optionalBlock-container">                                                                       */
+   	/*				|                                                                                                   */
+   	/*				⛛                                                                                                  */
+      	/*			<input type="checkbox">																				*/
    	/* **************************************************************************************************************** */
    	
    	
@@ -227,16 +239,16 @@
 			connectionRowSetContainer=findConRowSetContainer(prev);
 			curr_stepid=isolateStepidFromPswd(connectionRowSetContainer); 
 			section=connectionRowSetContainer;
+			section=section.nextSibling;
+
 			while(section!=null)
 			{
-				section=section.nextSibling;   					
-
 				if (sectionClassName=="jenkins-section")
-				    sectionTitle=section.firstChild.innerHTML;
+				    sectionTitle=section.firstChild.innerText;
 				else if(sectionClassName=="rowSet-container")
 				    sectionTitle=section.firstChild.firstChild.firstChild.innerHTML;
 				
-				if(sectionTitle=="ANALYZE Keywords" || sectionTitle== "INTERVAL Keywords" || sectionTitle== "REPORTS Keywords" || sectionTitle=="BMC CFA Options")
+				if(sectionTitle=="ANALYZE Keywords" || sectionTitle== "INTERVAL Keywords" || sectionTitle== "REPORTS Keywords" || sectionTitle=="BMC AMI DevOps for Application Checkpoint Analysis Options")
 					for(optBlck of section.children)
 		   			{
 		   				if(optBlck.className.includes("optionalBlock-container"))
@@ -263,7 +275,9 @@
 		   				}
 		   			}
 				if(sectionTitle=="REPORTS Keywords" )
-					break;   					
+					break;
+
+    			section=section.nextSibling;
 			}//end while   	
 			populateJcl(curr_stepid);	  		
    	}
@@ -466,7 +480,7 @@
 		{
 			cont=cont.previousSibling;
 			if(sectionClassName=="jenkins-section")
-            	sectionTitle=cont.firstChild.innerHTML;
+            	sectionTitle=cont.firstChild.innerText;
             else if(sectionClassName=="rowSet-container")
                 sectionTitle=cont.firstChild.firstChild.firstChild.innerHTML;
 		}
@@ -494,11 +508,16 @@
 	function addOrRemoveChunk(event)
   	{		
 		c=null;
+
+		if(event.outerHTML!=null)
+            eventButton=event;
+        else if(event.target!==null)
+           eventButton=event.target;
 		
 		//The STEPLIB section doesn't contain an optionalBlock, so provide any arbitrary checkbox 
 		if(event.target.innerHTML.includes("library"))
 		{			
-			el=event.target;
+			el=eventButton;
 			while(el.tagName!="DIV")
 				el=el.parentNode;
 			while(el.tagName=="DIV")
@@ -521,10 +540,10 @@
 		}
 		else
 		{			
-			temp=findOptBlockContFromInnerElement(event.target);
-			c=temp.firstChild.firstChild.firstChild;			
+			temp=findOptBlockContFromInnerElement(eventButton);
+			c=temp.firstChild.firstChild.firstChild.firstChild;
 		}
-		refreshAll(c,event);
+		refreshAll(c,eventButton);
 	
  		}// end of function
 	 
@@ -789,7 +808,8 @@
 	  			refreshLoadLibs(tmp);
 	  			if(event!=null)
 	  			{
-	  				if(event.target.title=="Delete library")
+	  				//if(event.target.title=="Delete library")
+	  				if(event.className.includes('repeatable-delete'))
 	  					loadLibs.pop();
 	  			}	  			
 		}	
@@ -1019,11 +1039,6 @@
 						break;
 					}
 					return tmp;
-					
-				
-				
-			
-			
 		}
 		/* ********************************************************************************************** */
 		function toggleSlds(chkbox,event)
@@ -1032,7 +1047,8 @@
 			{
 				refreshSLDS(findSLDSContainerFromCheckbox(chkbox));
 				if(event!=null)
-					if(event.target.title=="Delete SLDS")
+					//if(event.target.title=="Delete SLDS")
+					if(event.className.includes('repeatable-delete') && event.parentNode.parentNode.parentNode.getAttribute("name").includes('builder.cfaSldsLibs'))
 						SLDS.pop();
 			}
 			else
@@ -1046,7 +1062,8 @@
 			{
 				refreshRECON(findSLDSContainerFromCheckbox(chkbox));
 				if(event!=null)
-					if(event.target.title=="Delete RECON SET")
+					//if(event.target.title=="Delete RECON SET")
+					if(event.className.includes('repeatable-delete') && event.parentNode.parentNode.parentNode.getAttribute("name").includes('cfaReconSets'))
 						reconSet.pop();
 			}
 			else
@@ -1060,7 +1077,8 @@
 			{
 				refreshDLI(findSLDSContainerFromCheckbox(chkbox));
 				if(event!=null)
-					if(event.target.title=="Delete DLILOG")
+					//if(event.target.title=="Delete DLILOG")
+					if(event.className.includes('repeatable-delete') && event.parentNode.parentNode.parentNode.getAttribute("name").includes('builder.cfaDliLibs'))
 						DLI.pop();
 			}
 			else
@@ -1074,7 +1092,8 @@
 			{
 				refreshIMSIDs(findSLDSContainerFromCheckbox(chkbox));
 				if(event!=null)
-					if(event.target.title=="Delete IMSID")
+					//if(event.target.title=="Delete IMSID")
+					if(event.className.includes('repeatable-delete')&& event.parentNode.parentNode.parentNode.getAttribute("name").includes('cfaImsids'))
 						IMSIDs.pop();
 			}
 			else				
@@ -1089,7 +1108,8 @@
 			{
 				refreshJobnames(findSLDSContainerFromCheckbox(chkbox));
 				if(event!=null)
-					if(event.target.title=="Delete JOBNAME")
+					//if(event.target.title=="Delete JOBNAME")
+					if(event.className.includes('repeatable-delete') && event.parentNode.parentNode.parentNode.getAttribute("name").includes('cfaJobnames'))
 						JOBNAMEs.pop();
 			}
 			else	
