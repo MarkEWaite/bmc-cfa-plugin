@@ -79,11 +79,11 @@ public class BmcCfaAction extends BuildAction implements StaplerProxy {
 
              //File dir = new File(((FreeStyleBuild) this.run).getWorkspace()+"\\"+this.run.getNumber());
              File dir = new File(this.ws + File.separator + this.buildNum + File.separator+ this.jobid);
-             if (dir==null)
-                 return dir;
-            //try {
-                File[] matches = dir.listFiles((dir1, name) -> name.contains(this.csvFileName));
 
+            //try {
+             File[] matches = dir.listFiles((dir1, name) -> name.contains(this.csvFileName));
+             if (matches==null)
+                 return dir;
                     if (matches[0].getPath().contains("IMS") || matches[0].getPath().contains("DLI") )
                         this.reportType = "IMS";
                     else
